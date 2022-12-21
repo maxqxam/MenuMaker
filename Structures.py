@@ -98,6 +98,7 @@ class Rect :
         self.__x, self.__y, self.__width, self.__height = x, y, width, height
         self.__pos = Pos( self.__x, self.__y )
         self.__size = Pos( self.__width, self.__height )
+        
 
 
     def __str__( self ) :

@@ -65,6 +65,9 @@ class Window :
         return self.__last_dropped_file
 
 
+    def set_fps( self , fps:int ):
+        self.__fps = fps
+
     def check_events( self ) :
         if self.__mouse_in :
             if not self.__mouse_entered :
@@ -111,3 +114,9 @@ class Window :
 
     def tick( self ) :
         self.__clock.tick( self.__fps )
+
+    def run( self , event_list:list=None):
+        self.get_events(event_list)
+        self.check_events()
+        self.render_and_update()
+        self.tick()
