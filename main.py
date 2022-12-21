@@ -3,12 +3,16 @@ import pygame as pg
 from Window import Window
 from Structures import *
 
+pg.init()
 
-color = Color(100,200,255,255)
+window: Window = Window(Pos(1000, 750), Pos(800, 600), "menu maker")
 
-rect = Rect(0,0,0,0)
-rect.transform_pos(-120,3)
-rect.transform_size(150,1.1)
+bg = Color(150,150,220)
 
+while window.is_running:
+    window.get_events(pg.event.get())
+    window.check_events()
 
-print(rect.get_pos())
+    window.render_and_update()
+
+    window.tick()
