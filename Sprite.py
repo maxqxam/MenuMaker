@@ -6,6 +6,8 @@ class Sprite:
         self.path = path
         self.__raw_image = pg.image.load(path)
 
+        self.auto_transform = False
+
         self.__x_flip = False
         self.__y_flip = False
         self.__angle = 0
@@ -38,11 +40,15 @@ class Sprite:
 
     def reset_flips( self ,x_flip:bool=False,y_flip:bool=False) :
         self.__x_flip,self.__y_flip = x_flip,y_flip
+        if self.auto_transform: self.transform_image()
+
         return self
 
 
     def reset_angle( self , angle:float=0) :
         self.__angle = angle
+        if self.auto_transform : self.transform_image()
+
         return self
 
 
@@ -52,6 +58,8 @@ class Sprite:
             self.__scale.reset_by_tuple(scale)
         else:
             self.__scale = scale
+
+        if self.auto_transform : self.transform_image()
 
         return self
 
@@ -73,3 +81,6 @@ class Sprite:
 
         return self
 
+
+    def render( self , surface:pg.surface.Surface , top_left_pos:Pos):
+        surface.blit(self.__transformed_image,top_left_pos.get_tuple())

@@ -64,6 +64,12 @@ class Pos :
     def reset( self, new_x: float = 0, new_y: float = 0 ) :
         self.x, self.y = new_x, new_y
 
+        return self
+
+    def reset_by_tuple( self , pos:tuple[float,float]):
+        self.x, self.y = pos
+        return self
+
 
     def get_tuple( self ) :
         return self.x, self.y
@@ -98,7 +104,7 @@ class Rect :
         self.__x, self.__y, self.__width, self.__height = x, y, width, height
         self.__pos = Pos( self.__x, self.__y )
         self.__size = Pos( self.__width, self.__height )
-        
+
 
 
     def __str__( self ) :
