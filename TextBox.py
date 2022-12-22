@@ -56,8 +56,9 @@ class TextBox:
 
 
     def centralize_text( self ):
-
-        self.__text_pos = self.__rect.get_size().get_transformed_pos(mult=0.1)
+        self.__text_pos = self.__rect.get_size().get_transformed_pos(mult=0.5).join(
+            self.__text_holder.get_size().get_transformed_pos(mult=-0.5)
+        )
 
 
     def update_surface( self ):
@@ -70,8 +71,6 @@ class TextBox:
 
     def render( self , surface:pg.surface.Surface , render_pos:Pos=None):
         if render_pos is None: render_pos = self.__rect.get_pos()
-
-        print(self.__rect.get_tuple(),render_pos)
 
         surface.blit(self.__surface,render_pos.get_tuple())
 

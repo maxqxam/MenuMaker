@@ -16,34 +16,25 @@ class Menu :
 
         self.__surface_color = Color( 0, 0, 0, 0 )
 
-
-
         text_box_size = self.__surface_size.get_transformed_pos( mult=0.5 )
 
         text = TextHolder(Payams.LongText,pg.font.Font(None,30),
                         text_box_size.x )
 
-
-
         self.text_box = TextBox(
             Rect.fromPos( Pos( 0, 0 ),  text_box_size) ,
                         text)
 
-
-        # self.text_box.reset_color(Color(70,30,25))
-
-
         t_b_rect = self.text_box.get_rect()
-
-        print( self.text_box.get_rect() )
-        print( self.text_box.get_rect().get_pos() )
 
         self.text_box.get_rect().reset_pos(
             t_b_rect.get_size().x / -2 + self.__surface_size.x / 2,
             t_b_rect.get_size().y / - 2 + self.__surface_size.y / 2 )
 
-        print(self.text_box.get_rect())
-        print(self.text_box.get_rect().get_pos())
+        self.text_box.centralize_text()
+        self.text_box.update_surface()
+
+
 
 
 

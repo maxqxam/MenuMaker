@@ -181,6 +181,10 @@ class Pos :
         return Pos( self.x, self.y ).transform( Sum, mult, sum_first ).get_tuple()
 
 
+    def join( self, pos ) :
+        return Pos( self.x + pos.x, self.y + pos.y )
+
+
 class Rect :
 
     @staticmethod
@@ -219,13 +223,13 @@ class Rect :
         return self.__size
 
 
-    def reset( self , new_x: float = 0, new_y: float = 0 ,
-                        new_width:float = 0, new_height:float = 0) :
-
+    def reset( self, new_x: float = 0, new_y: float = 0, new_width: float = 0,
+            new_height: float = 0 ) :
         self.get_pos().reset( new_x, new_y )
         self.get_size().reset( new_width, new_height )
         self.sync()
         return self
+
 
     def reset_pos( self, new_x: float = 0, new_y: float = 0 ) :
         self.get_pos().reset( new_x, new_y )
