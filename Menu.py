@@ -35,9 +35,16 @@ class Menu :
 
         t_b_rect = self.text_box.get_rect()
 
-        self.text_box.get_rect().get_pos().reset(
+        print( self.text_box.get_rect() )
+        print( self.text_box.get_rect().get_pos() )
+
+        self.text_box.get_rect().reset_pos(
             t_b_rect.get_size().x / -2 + self.__surface_size.x / 2,
             t_b_rect.get_size().y / - 2 + self.__surface_size.y / 2 )
+
+        print(self.text_box.get_rect())
+        print(self.text_box.get_rect().get_pos())
+
 
 
     def set_color( self, color: Color ) :

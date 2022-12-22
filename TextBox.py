@@ -9,15 +9,15 @@ from MSprite import MSprite
 class TextBox:
     def __init__(self,rect:Rect,textHolder:TextHolder):
 
+        self.__text_pos = Pos(0,0)
         self.__text_holder = textHolder
         self.__rect = rect
         self.__surface = pg.surface.Surface(self.__rect.get_size().get_tuple()).convert_alpha()
 
-        self.__background_color = Color(50,50,50)
-        self.__background_hover_color = Color(150,150,255)
+        self.__background_color = Colors.WOODEN
+        self.__background_hover_color = Colors.WOODEN.get_summed(Color(50,50,50))
 
-        self.__current_background_color = self.__background_color.get_joined(
-            self.__background_hover_color , 0.5)
+        self.__current_background_color = self.__background_color
 
         self.__hover_transition_speed_scale = 0.01
 
@@ -27,7 +27,7 @@ class TextBox:
         self.__background_clip = None
 
         self.__image_on_top = False
-
+        self.centralize_text()
         self.update_surface()
 
     def get_rect( self ):
@@ -55,9 +55,15 @@ class TextBox:
         self.__background_clip = msprite
 
 
+    def centralize_text( self ):
+
+        self.__text_pos = self.__rect.get_size().get_transformed_pos(mult=0.1)
+
 
     def update_surface( self ):
-        pass
+        self.__surface.fill(self.__current_background_color.get_tuple())
+        self.__text_holder.render(self.__surface,self.__text_pos)
+
 
     def check_events( self ):
         pass
@@ -65,11 +71,8 @@ class TextBox:
     def render( self , surface:pg.surface.Surface , render_pos:Pos=None):
         if render_pos is None: render_pos = self.__rect.get_pos()
 
-        print(self.__current_background_color)
-        self.__surface.fill(self.__current_background_color.get_tuple())
+        print(self.__rect.get_tuple(),render_pos)
 
         surface.blit(self.__surface,render_pos.get_tuple())
-
-        self.__text_holder.render(surface,render_pos.copy())
 
 

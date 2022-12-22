@@ -13,12 +13,18 @@ class TextHolder :
         self.__font = font
         self.__max_width = max_width
 
+        self.__size = Pos(max_width,0)
+
         self.__text_list = []
         self.__surface_list = []
-        self.surface = None
+        self.__surface = None
         self.update_text()
 
+    def get_surface( self ):
+        return self.__surface
 
+    def get_size( self ):
+        return self.__size
 
     def update_text( self, text: str = None ) :
         if text is None : self.__text = self.__text
@@ -62,19 +68,21 @@ class TextHolder :
         height = 0
         for i in self.__surface_list:
             height += i.get_height()
-
-        self.surface = pg.surface.Surface([self.__max_width,height]).convert_alpha()
-        self.surface.fill(Colors.GLASS.get_tuple())
+        self.__size.reset(self.__max_width,height)
+        self.__surface = pg.surface.Surface(self.__size.get_tuple()).convert_alpha()
+        self.__surface.fill(Colors.GLASS.get_tuple())
 
         for i in self.__surface_list:
-            self.surface.blit(i,top_left_pos.get_tuple())
+            self.__surface.blit(i,top_left_pos.get_tuple())
             top_left_pos.y += i.get_height()
+
+
 
 
     def render( self, surface:pg.surface.Surface , top_left_pos:Pos = None) :
         if top_left_pos is None: top_left_pos = Pos(0,0)
 
-        surface.blit(self.surface,top_left_pos.get_tuple())
+        surface.blit(self.__surface,top_left_pos.get_tuple())
 
 
 
