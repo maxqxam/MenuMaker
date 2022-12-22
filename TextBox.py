@@ -6,9 +6,9 @@ from Sprite import Sprite
 from MSprite import MSprite
 
 class TextBox:
-    def __init__(self,rect:Rect,text:TextHolder):
+    def __init__(self,rect:Rect,textHolder:TextHolder):
 
-        self.__text_holder = text
+        self.__text_holder = textHolder
         self.__rect = rect
         self.__surface = pg.surface.Surface(self.__rect.get_size().get_tuple()).convert_alpha()
 

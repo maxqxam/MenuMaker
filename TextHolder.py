@@ -2,6 +2,7 @@ import pygame as pg
 
 import itertools
 from Structures import *
+from Constants import Colors
 
 
 class TextHolder :
@@ -14,7 +15,7 @@ class TextHolder :
 
         self.__text_list = []
         self.__surface_list = []
-
+        self.surface = None
         self.update_text()
 
 
@@ -24,6 +25,7 @@ class TextHolder :
 
         self.generate_texts()
         self.generate_surfaces()
+        self.generate_surface()
 
 
     def generate_texts( self ) :
@@ -54,13 +56,25 @@ class TextHolder :
             self.__surface_list.append(
                 self.__font.render( i, True, self.__color.get_tuple()) )
 
+    def generate_surface( self ):
+        top_left_pos = Pos(0,0)
+
+        height = 0
+        for i in self.__surface_list:
+            height += i.get_height()
+
+        self.surface = pg.surface.Surface([self.__max_width,height]).convert_alpha()
+        self.surface.fill(Colors.GLASS.get_tuple())
+
+        for i in self.__surface_list:
+            self.surface.blit(i,top_left_pos.get_tuple())
+            top_left_pos.y += i.get_height()
+
 
     def render( self, surface:pg.surface.Surface , top_left_pos:Pos = None) :
         if top_left_pos is None: top_left_pos = Pos(0,0)
 
-        for i in self.__surface_list:
-            surface.blit(i,top_left_pos.get_tuple())
-            top_left_pos.y += i.get_height()
+        surface.blit(self.surface,top_left_pos.get_tuple())
 
 
 
