@@ -2,6 +2,7 @@ import pygame as pg
 
 from TextHolder import TextHolder
 from Structures import *
+from Constants import Colors
 from Sprite import Sprite
 from MSprite import MSprite
 
@@ -12,12 +13,15 @@ class TextBox:
         self.__rect = rect
         self.__surface = pg.surface.Surface(self.__rect.get_size().get_tuple()).convert_alpha()
 
-        self.__text_color = Color(180,70,70)
+        self.__background_color = Color(50,50,50)
+        self.__background_hover_color = Color(150,150,255)
 
-        self.__current_background_color = Color(0,0,0)
-        self.__background_color = Color(0,0,0)
-        self.__background_hover_color = Color(0,0,0)
+        self.__current_background_color = self.__background_color.get_joined(
+            self.__background_hover_color , 0.5)
+
         self.__hover_transition_speed_scale = 0.01
+
+        self.border_color = 0
 
         self.__background_image = None
         self.__background_clip = None
@@ -61,7 +65,8 @@ class TextBox:
     def render( self , surface:pg.surface.Surface , render_pos:Pos=None):
         if render_pos is None: render_pos = self.__rect.get_pos()
 
-        self.__surface.fill(self.__background_color.get_tuple())
+        print(self.__current_background_color)
+        self.__surface.fill(self.__current_background_color.get_tuple())
 
         surface.blit(self.__surface,render_pos.get_tuple())
 

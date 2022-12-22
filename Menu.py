@@ -1,5 +1,6 @@
 import pygame as pg
 
+from Constants import Colors
 from Structures import *
 from TextHolder import TextHolder
 from TextBox import TextBox
@@ -15,11 +16,11 @@ class Menu :
 
         self.__surface_color = Color( 0, 0, 0, 0 )
 
-        print(self.__surface_size)
+
 
         text_box_size = self.__surface_size.get_transformed_pos( mult=0.5 )
 
-        text = TextHolder(Payams.LongText*10,pg.font.Font(None,30),
+        text = TextHolder(Payams.LongText,pg.font.Font(None,30),
                         text_box_size.x )
 
 
@@ -29,8 +30,7 @@ class Menu :
                         text)
 
 
-
-        self.text_box.reset_color(Color(70,30,25))
+        # self.text_box.reset_color(Color(70,30,25))
 
 
         t_b_rect = self.text_box.get_rect()
@@ -68,3 +68,4 @@ class Menu :
         self.get_events( event_list )
         self.check_events()
         self.render( surface )
+

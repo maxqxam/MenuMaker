@@ -10,6 +10,8 @@ class Color :
             [self.__red, self.__green, self.__blue, self.__alpha]] ) :
             raise ValueError( Errors.InvalidColorValue )
 
+    def __str__( self ):
+        return "[ColorObject : ({},{},{},{})]".format(self.__red,self.__green,self.__blue,self.__alpha)
 
     def get_pygame_color( self ):
         return pg.color.Color(self.get_tuple())
@@ -38,14 +40,62 @@ class Color :
     def check_value_validness( self ) :
         if not self.is_valid() : ValueError( Errors.InvalidColorValue )
 
+    def cap_values( self ):
 
-    def transform( self, r_sum: float = 0, g_sum: float = 0, b_sum: float = 0, a_sum: float = 0 ) :
+        if self.__red < 0 : self.__red = 0
+        if self.__red > 255 : self.__red = 255
+
+        if self.__green < 0 : self.__green = 0
+        if self.__green > 255 : self.__green = 255
+
+        if self.__blue < 0 : self.__blue = 0
+        if self.__blue > 255 : self.__blue = 255
+
+        if self.__alpha < 0 : self.__alpha = 0
+        if self.__alpha > 255 : self.__alpha = 255
+
+        return self
+
+    def join( self ,color , scale:float=1 ):
+        if scale < 0 or scale > 1: raise ValueError(Errors.InvalidScale)
+
+        color = color.copy()
+
+        self.__transform(1 - scale)
+        color.__transform(scale)
+
+        self.__join(color)
+        self.cap_values()
+
+        return self
+
+    def __join( self , color ):
+        result = self
+        result.sum_values(color.__red,color.__green,color.__blue,color.__alpha , False)
+
+        return result
+
+    def get_joined( self ,color , scale:float=1 ):
+        return self.copy().join(color,scale)
+
+    def __transform( self , mult:float = 1):
+        self.__red *= mult
+        self.__green *= mult
+        self.__blue *= mult
+
+        return self
+
+    def sum_values( self, r_sum: float = 0, g_sum: float = 0, b_sum: float = 0, a_sum: float = 0 ,
+                    check_value:bool = True) :
+
         self.__red += r_sum
         self.__green += g_sum
         self.__blue += b_sum
         self.__alpha += a_sum
 
-        self.check_value_validness()
+        if check_value:
+            self.check_value_validness()
+
         return self
 
 
