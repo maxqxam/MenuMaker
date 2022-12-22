@@ -11,29 +11,32 @@ class Color :
             raise ValueError( Errors.InvalidColorValue )
 
 
-    def copy( self ) :
-        return Color( self.__red, self.__green, self.__blue, self.__alpha )
-
-
-    def is_valid( self ) :
-        return any(
-            [(i < 0 or i > 255) for i in [self.__red, self.__green, self.__blue, self.__alpha]] )
-
-
-    def check_value_validness( self ) :
-        if not self.is_valid() : ValueError( Errors.InvalidColorValue )
-
     def get_pygame_color( self ):
         return pg.color.Color(self.get_tuple())
+
 
     def get_tuple( self ) :
         return self.__red, self.__green, self.__blue, self.__alpha
 
 
+    def copy( self ) :
+        return Color( self.__red, self.__green, self.__blue, self.__alpha )
+
     def reset( self, r: float, g: float, b: float, a: float ) :
         self.__red, self.__green, self.__blue, self.__alpha = r, g, b, a
         self.check_value_validness()
         return self
+
+    def set_alpha( self , alpha:float ):
+        self.__alpha = alpha
+        self.check_value_validness()
+
+    def is_valid( self ) :
+        return any(
+            [(i < 0 or i > 255) for i in [self.__red, self.__green, self.__blue, self.__alpha]] )
+
+    def check_value_validness( self ) :
+        if not self.is_valid() : ValueError( Errors.InvalidColorValue )
 
 
     def transform( self, r_sum: float = 0, g_sum: float = 0, b_sum: float = 0, a_sum: float = 0 ) :
@@ -99,6 +102,10 @@ class Pos :
 
 
 class Rect :
+
+    @staticmethod
+    def fromPos(pos:Pos,size:Pos):
+        return Rect(pos.x,pos.y,size.x,size.y)
 
     def __init__( self, x: float, y: float, width: float, height: float ) :
         self.__x, self.__y, self.__width, self.__height = x, y, width, height

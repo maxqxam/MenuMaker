@@ -1,17 +1,33 @@
 import pygame as pg
 
 from Structures import *
+from TextBox import TextBox
 
-class Menu:
-    def __init__( self, surface_size:Pos , surface_pos:Pos = Pos(0,0) ):
 
+class Menu :
+
+    def __init__( self, surface_size: Pos, surface_pos: Pos = Pos( 0, 0 ) ) :
         self.__surface_pos = surface_pos
         self.__surface_size = surface_size
-        self.__surface = pg.surface.Surface(self.__surface_size.get_tuple()).convert_alpha()
+        self.__surface = pg.surface.Surface( self.__surface_size.get_tuple() ).convert_alpha()
 
-        self.__surface_color = Color(0,0,0,0)
+        self.__surface_color = Color( 0, 0, 0, 0 )
 
-    def set_color( self , color:Color ):
+        self.text_box = TextBox(
+            Rect.fromPos( Pos( 0, 0 ), self.__surface_size.get_transformed_pos( mult=0.5 ) ),
+            pg.font.Font( None, 60 ) )
+
+        self.text_box.reset_color(Color(70,30,25))
+
+
+        t_b_rect = self.text_box.get_rect()
+
+        self.text_box.get_rect().get_pos().reset(
+            t_b_rect.get_size().x / -2 + self.__surface_size.x / 2,
+            t_b_rect.get_size().y / - 2 + self.__surface_size.y / 2 )
+
+
+    def set_color( self, color: Color ) :
         self.__surface_color = color
 
 
@@ -23,18 +39,19 @@ class Menu:
         for i in event_list :
             pass
 
-    def check_events( self ):
+
+    def check_events( self ) :
         pass
 
-    def render( self , surface:pg.surface.Surface):
-        self.__surface.fill(self.__surface_color.get_tuple())
 
-        surface.blit(self.__surface,self.__surface_pos.get_tuple())
+    def render( self, surface: pg.surface.Surface ) :
+        self.__surface.fill( self.__surface_color.get_tuple() )
+        self.text_box.render( self.__surface )
+
+        surface.blit( self.__surface, self.__surface_pos.get_tuple() )
 
 
-    def run( self,surface:pg.surface.Surface,event_list: list = None ) :
+    def run( self, surface: pg.surface.Surface, event_list: list = None ) :
         self.get_events( event_list )
         self.check_events()
-        self.render(surface)
-
-
+        self.render( surface )

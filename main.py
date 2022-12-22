@@ -6,7 +6,7 @@ from Menu import Menu
 pg.init()
 
 window: Window = Window(Pos(1000, 750), Pos(800, 600), "menu maker")
-menu: Menu = Menu(Pos(1000,750))
+menu: Menu = Menu(Pos(800,600))
 
 bg = Color(150,150,220)
 

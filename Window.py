@@ -23,7 +23,7 @@ class Window :
 
         self.__clock = pg.time.Clock()
         self.__mask = pg.surface.Surface( self.__mask_size.get_tuple() )
-        self.__window = pg.display.set_mode( self.__mask_size.get_tuple(), RESIZABLE )
+        self.__window = pg.display.set_mode( self.__window_size.get_tuple(), RESIZABLE )
 
         self.__window_title = title
 
@@ -71,7 +71,8 @@ class Window :
     def check_events( self ) :
         if self.__mouse_in :
             if not self.__mouse_entered :
-                pg.mouse.set_pos( self.__mouse_init_pos.get_tuple() )
+                pass
+                # pg.mouse.set_pos( self.__mouse_init_pos.get_tuple() )
 
             self.__mouse_pos.x, self.__mouse_pos.y = pg.mouse.get_pos()
             self.__mouse_in = False
