@@ -1,7 +1,9 @@
 import pygame as pg
 
 from Structures import *
+from TextHolder import TextHolder
 from TextBox import TextBox
+from Enums import Payams
 
 
 class Menu :
@@ -13,9 +15,20 @@ class Menu :
 
         self.__surface_color = Color( 0, 0, 0, 0 )
 
+        print(self.__surface_size)
+
+        text_box_size = self.__surface_size.get_transformed_pos( mult=0.5 )
+
+        text = TextHolder(Payams.LongText*10,pg.font.Font(None,30),
+                        text_box_size.x )
+
+
+
         self.text_box = TextBox(
-            Rect.fromPos( Pos( 0, 0 ), self.__surface_size.get_transformed_pos( mult=0.5 ) ),
-            pg.font.Font( None, 60 ) )
+            Rect.fromPos( Pos( 0, 0 ),  text_box_size) ,
+                        text)
+
+
 
         self.text_box.reset_color(Color(70,30,25))
 

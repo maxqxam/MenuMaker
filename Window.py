@@ -92,11 +92,16 @@ class Window :
 
 
     def get_events( self, event_list=None ) :
+
+
+
         if event_list is None : event_list = list()
 
         if len( event_list ) == 0 : event_list = pg.event.get()
 
         for i in event_list :
+            if i.type == MOUSEBUTTONDOWN:
+                if pg.mouse.get_pressed()[0] : print( self.__mouse_pos )
 
             if i.type == MOUSEMOTION:
                 self.__mouse_moved = True
@@ -109,6 +114,7 @@ class Window :
 
             if i.type == WINDOWSIZECHANGED :
                 self.__window_size.reset( i.x, i.y )
+
             if i.type == QUIT or i.type == KEYDOWN and i.key == K_ESCAPE :
                 self.is_running = False
 

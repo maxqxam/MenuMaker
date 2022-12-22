@@ -1,12 +1,14 @@
 import pygame as pg
 
+from TextHolder import TextHolder
 from Structures import *
 from Sprite import Sprite
 from MSprite import MSprite
 
 class TextBox:
-    def __init__(self,rect:Rect,font:pg.font.Font):
-        self.__font = font
+    def __init__(self,rect:Rect,text:TextHolder):
+
+        self.__text_holder = text
         self.__rect = rect
         self.__surface = pg.surface.Surface(self.__rect.get_size().get_tuple()).convert_alpha()
 
@@ -63,5 +65,6 @@ class TextBox:
 
         surface.blit(self.__surface,render_pos.get_tuple())
 
+        self.__text_holder.render(surface,render_pos.copy())
 
 

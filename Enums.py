@@ -1,2 +1,7 @@
 class Errors:
     InvalidColorValue = "The color values must be between 0 and 255!"
+
+class Payams:
+    LongText = "Bro You look like you have no bright IDEAS!"\
+                    + "Hahahahahaha So funnyyyyy"+\
+                    " - :/ shut up"
